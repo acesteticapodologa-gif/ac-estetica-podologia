@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://www.acesteticaepodologia.com.br/sitemap.xml
