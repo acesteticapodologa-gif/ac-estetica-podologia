@@ -63,15 +63,36 @@ Bloco completo já presente no `<head>` (linhas 42–73). Dados confirmados:
 
 ---
 
-## O que ainda falta fazer (dentro do GTM e Meta)
+## O que ainda falta fazer (dentro do GTM)
 
-### 1. Criar o Meta Pixel (quando tiver o Pixel ID)
+**Pixel ID: `1496068898650901`**  
+**Contêiner GTM: `GTM-MSNH2P9F`** — acesse em tagmanager.google.com
 
-No painel do GTM (`tagmanager.google.com`), com o contêiner `GTM-MSNH2P9F`:
+---
 
-**Tag: Meta Pixel — Base**
-- Tipo: HTML Personalizado
-- Código:
+### Passo 1 — Criar o Acionador "Clique WhatsApp"
+
+`Acionadores → Novo`
+
+| Campo | Valor |
+|-------|-------|
+| Nome | Clique WhatsApp |
+| Tipo | Clique — Apenas Links |
+| Ativar em | Alguns cliques de link |
+| Condição | `Click Classes` **contém** `botao-whatsapp` |
+
+---
+
+### Passo 2 — Criar a Tag "Meta Pixel — PageView"
+
+`Tags → Nova → HTML Personalizado`
+
+| Campo | Valor |
+|-------|-------|
+| Nome | Meta Pixel — PageView |
+| Acionador | All Pages |
+
+Código a colar:
 ```html
 <script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -79,23 +100,38 @@ n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
 n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
 (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', 'SEU_PIXEL_ID_AQUI');
+fbq('init', '1496068898650901');
 fbq('track', 'PageView');
 </script>
+<noscript>
+<img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1496068898650901&ev=PageView&noscript=1"/>
+</noscript>
 ```
-- Acionador: **All Pages**
 
-**Tag: Pixel — Clique WhatsApp**
-- Tipo: HTML Personalizado
-- Código:
+---
+
+### Passo 3 — Criar a Tag "Meta Pixel — Clique WhatsApp"
+
+`Tags → Nova → HTML Personalizado`
+
+| Campo | Valor |
+|-------|-------|
+| Nome | Meta Pixel — Clique WhatsApp |
+| Acionador | **Clique WhatsApp** (criado no Passo 1) |
+
+Código a colar:
 ```html
 <script>fbq('track', 'Contact');</script>
 ```
-- Acionador: **Clique WhatsApp** (criar abaixo)
 
-**Acionador: Clique WhatsApp**
-- Tipo: Clique — Apenas Links
-- Condição: `Click Classes` **contém** `botao-whatsapp`
+---
+
+### Passo 4 — Publicar o contêiner
+
+`Enviar → Publicar → Confirmar`
+
+Dê um nome para a versão, ex: *"Pixel 1496068898650901 + rastreamento WhatsApp"*.
 
 ### 2. Publicar o contêiner
 
